@@ -2,9 +2,9 @@
   "name": "raml-example-validator",
   "version": "0.0.0",
   "description": "RAML example validator",
-  "main": "lib/raml-ev.js",
+  "main": "lib/ramlev.js",
   "bin": {
-    "raml-ev": "bin/raml-ev"
+    "ramlev": "bin/ramlev"
   },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register"
