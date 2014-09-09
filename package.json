@@ -1,0 +1,28 @@
+{
+  "name": "raml-example-validator",
+  "version": "0.0.0",
+  "description": "RAML example validator",
+  "main": "lib/raml-ev.js",
+  "bin": {
+    "raml-ev": "bin/raml-ev"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cybertk/raml-example-validator.git"
+  },
+  "keywords": [
+    "RAML",
+    "example",
+    "validator",
+    "lint"
+  ],
+  "author": "Quanlong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cybertk/raml-example-validator/issues"
+  },
+  "homepage": "https://github.com/cybertk/raml-example-validator"
+}
