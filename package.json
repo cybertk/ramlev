@@ -7,7 +7,8 @@
     "ramlev": "bin/ramlev"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register"
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "postinstall": "grunt coffee"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,18 @@
   "bugs": {
     "url": "https://github.com/cybertk/raml-example-validator/issues"
   },
-  "homepage": "https://github.com/cybertk/raml-example-validator"
+  "homepage": "https://github.com/cybertk/raml-example-validator",
+  "dependencies": {
+    "coffee-script": "^1.8.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-coffee": "^0.11.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "jit-grunt": "^0.8.0",
+    "mocha": "^1.21.4",
+    "time-grunt": "^1.0.0"
+  }
 }
