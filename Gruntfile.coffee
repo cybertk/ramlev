@@ -8,6 +8,7 @@ module.exports = (grunt) ->
   require('jit-grunt') grunt
 
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.initConfig
 
@@ -32,8 +33,19 @@ module.exports = (grunt) ->
         dest: 'lib/',
         ext: '.js'
 
+    mochaTest:
+      test:
+        options:
+          require: 'coffee-script/register'
+        src: ['test/**/*.coffee']
+
   grunt.registerTask "default", [
     "watch"
+  ]
+
+  grunt.registerTask "test", [
+    "coffee"
+    "mochaTest"
   ]
 
   return
