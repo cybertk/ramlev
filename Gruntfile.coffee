@@ -36,6 +36,7 @@ module.exports = (grunt) ->
     mochaTest:
       test:
         options:
+          reporter: 'spec'
           require: 'coffee-script/register'
         src: ['test/**/*.coffee']
 
