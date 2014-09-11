@@ -1,5 +1,7 @@
 fs = require 'fs'
-spawn = require('child_process').spawn
+
+Mocha = require 'mocha'
+generateTests = require './generate-tests'
 
 
 options = require './options'
@@ -24,13 +26,11 @@ class Ramlev
     fs.readFile config.ramlPath, 'utf8', (loadingError, data) ->
       return callback(loadingError, stats) if loadingError
 
-      proc = spawn('node_modules/mocha/bin/mocha', [], { customFds: [0,1,2] })
-      proc.on 'exit', (code, signal) ->
-        process.on 'exit', () ->
-          if signal
-            process.kill(process.pid, signal)
-          else
-            process.exit(code);
+      mocha = new Mocha
+      generateTests data, mocha, ->
+        mocha.run ->
+          callback(null, stats)
+
 
 module.exports = Ramlev
 module.exports.options = options

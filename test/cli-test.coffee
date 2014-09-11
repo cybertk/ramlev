@@ -43,9 +43,12 @@ describe "Command line interface", () ->
   describe "Arguments with validated raml", () ->
 
     before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/github.raml"
+      cmd = "./bin/ramlev ./test/fixtures/song.raml"
 
       execCommand cmd, done
 
     it 'should exit with status 0', () ->
       assert.equal exitStatus, 0
+
+    it 'should print count of tests passing', () ->
+      assert.include stdout, '4 passing'
