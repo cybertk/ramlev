@@ -30,7 +30,7 @@ describe "Command line interface", () ->
 
   describe "When raml file not found", (done) ->
     before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/nonexistent_path.raml}"
+      cmd = "./bin/ramlev ./test/fixtures/nonexistent_path.raml"
 
       execCommand cmd, done
 
@@ -42,4 +42,10 @@ describe "Command line interface", () ->
 
   describe "Arguments with validated raml", () ->
 
-    it 'should exit with status 0'
+    before (done) ->
+      cmd = "./bin/ramlev ./test/fixtures/github.raml"
+
+      execCommand cmd, done
+
+    it 'should exit with status 0', () ->
+      assert.equal exitStatus, 0

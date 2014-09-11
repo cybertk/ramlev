@@ -49,7 +49,6 @@ process.on( 'SIGINT', function() {
 });
 
 ramlev.run(function(error, stats){
-  console.log("ck", error)
   if (error) {
     if (error.message) {
       console.error(error.message);

@@ -1,4 +1,6 @@
 fs = require 'fs'
+spawn = require('child_process').spawn
+
 
 options = require './options'
 
@@ -22,11 +24,13 @@ class Ramlev
     fs.readFile config.ramlPath, 'utf8', (loadingError, data) ->
       return callback(loadingError, stats) if loadingError
 
-      reporterCount = config.emitter.listeners('start').length
-      config.emitter.emit 'start', data, () ->
-        reporterCount--
-        if reporterCount is 0
-          protagonist.parse data, blueprintParsingComplete
+      proc = spawn('node_modules/mocha/bin/mocha', [], { customFds: [0,1,2] })
+      proc.on 'exit', (code, signal) ->
+        process.on 'exit', () ->
+          if signal
+            process.kill(process.pid, signal)
+          else
+            process.exit(code);
 
 module.exports = Ramlev
 module.exports.options = options
