@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+var optimist = require('optimist');
+var parsePackageJson = require('../lib/parse-package-json');
+var path = require('path');
+var Ramlev = require('../lib/ramlev');
+
+var version = parsePackageJson(path.join(__dirname, '../package.json'));
+
+var argv = optimist
+    .usage("Usage: \n  ramlev <path to raml> [OPTIONS]" +
+    "\n\nExample: \n  " + "ramlev ./api.raml")
+    .options(Ramlev.options)
+    .wrap(80)
+    .argv;
+
+var argError = false;
+
+if (argv.help === true) {
+  optimist.showHelp(fn=console.error);
+  process.exit(0);
+}
+
+if (argv.version === true) {
+  console.log(version);
+  process.exit(0);
+}
+
+if (argv._[0] === undefined) {
+  console.error("Error: Must specify path to raml file.");
+  argError = true;
+}
+if (argError) {
+  console.error("\n");
+  optimist.showHelp(fn=console.error);
+  process.exit(1);
+}
+
+configuration = {
+  'ramlPath': argv._[0],
+  'options': argv
+};
+
+ramlev = new Ramlev(configuration);
+
+process.on( 'SIGINT', function() {
+  ramlev.transactionsComplete(function() {
+    process.exit(0);
+  });
+});
+
+ramlev.run(function(error, stats){
+  console.log("ck", error)
+  if (error) {
+    if (error.message) {
+      console.error(error.message);
+    }
+    if (error.stack) {
+      console.error(error.stack);
+    }
+    process.exit(1);
+  }
+  if (stats.failures + stats.errors > 0) {
+    process.exit(1);
+  } else {
+    process.exit(0);
+  }
+});
