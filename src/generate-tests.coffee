@@ -32,7 +32,9 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
     # Generate Test Cases
     for j of resource.methods
       method = resource.methods[j].method
-      suite.addTest new Test "example of #{method.toUpperCase()}", ->
+      suite.addTest new Test "request of #{method.toUpperCase()}", ->
+        true.should.equal true
+      suite.addTest new Test "response of #{method.toUpperCase()}", ->
         true.should.equal true
 
     _traverse resource, url, suite

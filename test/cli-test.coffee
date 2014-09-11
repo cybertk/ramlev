@@ -51,4 +51,4 @@ describe "Command line interface", () ->
       assert.equal exitStatus, 0
 
     it 'should print count of tests passing', () ->
-      assert.include stdout, '4 passing'
+      assert.include stdout, '8 passing'
