@@ -64,6 +64,10 @@ describe "Command line interface", () ->
     it 'should print correct title for response', ->
       assert.equal report.tests[1].fullTitle, '/songs GET response'
       assert.equal report.tests[5].fullTitle, '/songs/{songId} GET response 200'
+
+    it 'should skip test when no schema/example section', ->
+      assert.equal report.pending[0].fullTitle, '/songs GET request'
+      assert.equal report.pending[1].fullTitle, '/songs GET response'
   # describe "Arguments with invalidated raml", () ->
   #
   #   before (done) ->

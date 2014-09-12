@@ -21,6 +21,16 @@ _generateTests = (source, mocha, callback) ->
     console.log(error)
     callback()
 
+_validatable = (body) ->
+
+  return false if not body
+
+  json = body['application/json']
+  return false if not json
+
+  return true if json.example and json.schema
+  false
+
 _traverse = (ramlObj, parentUrl, parentSuite) ->
   for i of ramlObj.resources
     resource = ramlObj.resources[i]
@@ -36,10 +46,13 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
       endpoint = resource.methods[j]
       method = endpoint.method
 
+      console.error(endpoint)
       # Request
-      suite.addTest new Test "#{method.toUpperCase()} request", ->
-        validate()
-        true.should.equal true
+      if not _validatable(endpoint.body)
+        suite.addTest new Test "#{method.toUpperCase()} request"
+      else
+        suite.addTest new Test "#{method.toUpperCase()} request", ->
+          true.should.equal true
 
       # Response
       if not endpoint.responses
