@@ -26,11 +26,11 @@ class Ramlev
     fs.readFile config.ramlPath, 'utf8', (loadingError, data) ->
       return callback(loadingError, stats) if loadingError
 
-      config.reporter = 'json-cov'
+      config.reporter = 'json'
       mocha = new Mocha config
       generateTests data, mocha, ->
         mocha.run ->
-          callback(null, stats)
+          callback(null, mocha.reporter.stats)
 
 
 module.exports = Ramlev

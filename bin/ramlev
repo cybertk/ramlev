@@ -58,7 +58,7 @@ ramlev.run(function(error, stats){
     }
     process.exit(1);
   }
-  if (stats.failures + stats.errors > 0) {
+  if (stats.failures > 0) {
     process.exit(1);
   } else {
     process.exit(0);
