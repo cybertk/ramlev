@@ -5,6 +5,7 @@ Test = Mocha.Test
 Suite = Mocha.Suite
 
 raml = require 'raml-parser'
+validate = require('tv4').validate
 
 _generateTests = (source, mocha, callback) ->
 
@@ -31,8 +32,14 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
 
     # Generate Test Cases
     for j of resource.methods
+
       method = resource.methods[j].method
-      suite.addTest new Test "request of #{method.toUpperCase()}", ->
+
+      # Validate request example
+      #if
+
+      suite.addTest new Test "#{method.toUpperCase()} request", ->
+        validate()
         true.should.equal true
       suite.addTest new Test "response of #{method.toUpperCase()}", ->
         true.should.equal true

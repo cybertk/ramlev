@@ -28,7 +28,8 @@
   "dependencies": {
     "coffee-script": "^1.8.0",
     "optimist": "^0.6.1",
-    "raml-parser": "^0.8.7"
+    "raml-parser": "^0.8.7",
+    "tv4": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^1.9.1",
