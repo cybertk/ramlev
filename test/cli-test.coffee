@@ -30,7 +30,7 @@ execCommand = (cmd, callback) ->
     exitStatus = code if exitStatus == null and code != undefined
     callback()
 
-describe "Command line interface", () ->
+describe "Command line interface", ->
 
   describe "When raml file not found", (done) ->
     before (done) ->
@@ -38,20 +38,32 @@ describe "Command line interface", () ->
 
       execCommand cmd, done
 
-    it 'should exit with status 1', () ->
+    it 'should exit with status 1', ->
       assert.equal exitStatus, 1
 
-    it 'should print error message to stderr', () ->
+    it 'should print error message to stderr', ->
       assert.include stderr, 'Error: ENOENT, open'
 
-  describe "Arguments with validated raml", () ->
+  describe 'when called with arguments', ->
+
+    describe "when using additional reporters with -r", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/song.raml -r spec"
+
+        execCommand cmd, done
+
+      it 'should print using the new reporter', ->
+        assert.include stdout, 'passing'
+
+  describe "Arguments with validated raml", ->
 
     before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/song.raml"
+      cmd = "./bin/ramlev ./test/fixtures/song.raml -r json"
 
       execCommand cmd, done
 
-    it 'should exit with status 0', () ->
+    it 'should exit with status 0', ->
       assert.equal exitStatus, 0
 
     it 'should print count of tests will run', ->
@@ -69,15 +81,15 @@ describe "Command line interface", () ->
       assert.equal report.pending[0].fullTitle, '/songs GET request'
       assert.equal report.pending[1].fullTitle, '/songs GET response'
 
-  describe "Arguments with invalidated raml", () ->
+  describe 'Arguments with invalidated raml', ->
 
     before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml"
+      cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml -r json"
 
       execCommand cmd, done
 
-    it 'should exit with status 1', () ->
+    it 'should exit with status 1', ->
       assert.equal exitStatus, 1
 
-    it 'should test failed on invalidated example', () ->
+    it 'should test failed on invalidated example', ->
        assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
