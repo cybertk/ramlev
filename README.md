@@ -27,6 +27,7 @@
     Options:
       --reporter, -r       Specify the reporter to use
                                                                        [default: spec]
+      --reporters          Display available reporters
       --help               Show usage information.
       --version            Show version number.
 

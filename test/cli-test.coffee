@@ -56,6 +56,18 @@ describe "Command line interface", ->
       it 'should print using the new reporter', ->
         assert.include stdout, 'passing'
 
+    describe "when list reporters with --reporters", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev --reporters"
+
+        execCommand cmd, done
+
+      it 'should print all avilable reporters', ->
+        assert.include stdout, 'spec - hierarchical spec list'
+        assert.include stdout, 'json - single json object'
+
+
   describe "Arguments with validated raml", ->
 
     before (done) ->
