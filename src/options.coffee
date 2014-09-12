@@ -1,10 +1,11 @@
 options =
   reporter:
     alias: "r"
-    description: "Output additional report format. This option can be used multiple times to add multiple reporters. Options: junit, nyan, dot, markdown, html, apiary.\n"
-    default: []
+    description: "Specify the reporter to use\n"
+    default: "sepc"
 
   help:
+    alias: "h"
     description: "Show usage information.\n"
 
   version:

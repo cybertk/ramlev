@@ -25,7 +25,7 @@
       ramlev ./api.raml
 
     Options:
-      --reporter, -r       Specify the reporter to use
+      --reporter, -r       Specify the reporter to use.
                                                                        [default: spec]
       --help               Show usage information.
       --version            Show version number.
