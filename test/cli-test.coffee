@@ -59,6 +59,11 @@ describe "Command line interface", () ->
 
     it 'should print correct title for request', ->
       assert.equal report.tests[0].fullTitle, '/songs GET request'
+      assert.equal report.tests[4].fullTitle, '/songs/{songId} GET request'
+
+    it 'should print correct title for response', ->
+      assert.equal report.tests[1].fullTitle, '/songs GET response'
+      assert.equal report.tests[5].fullTitle, '/songs/{songId} GET response 200'
   # describe "Arguments with invalidated raml", () ->
   #
   #   before (done) ->

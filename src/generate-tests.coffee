@@ -33,18 +33,25 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
     # Generate Test Cases
     for j of resource.methods
 
-      method = resource.methods[j].method
+      endpoint = resource.methods[j]
+      method = endpoint.method
 
-      # Validate request example
-      #if
-
+      # Request
       suite.addTest new Test "#{method.toUpperCase()} request", ->
         validate()
         true.should.equal true
-      suite.addTest new Test "response of #{method.toUpperCase()}", ->
-        true.should.equal true
 
-    _traverse resource, url, suite
+      # Response
+      if not endpoint.responses
+        suite.addTest new Test "#{method.toUpperCase()} response"
+
+      for status, body of endpoint.responses
+        console.error(status, body)
+
+        suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
+          true.should.equal true
+
+    _traverse resource, url, parentSuite
 
 generateTests = (source, mocha, callback) ->
 
