@@ -8,21 +8,6 @@ raml = require 'raml-parser'
 tv4 = require 'tv4'
 
 
-_generateTests = (source, mocha, callback) ->
-
-  raml.load(source).then (raml) ->
-    console.log(raml)
-
-    suite = Suite.create mocha.suite, 'I am a dynamic suite'
-    suite.addTest new Test 'I am a dynamic test', ->
-      true.should.equal true
-
-    callback()
-  , (error) ->
-    console.log(error)
-    callback()
-
-
 _validatable = (body) ->
 
   return false if not body

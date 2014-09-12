@@ -2,7 +2,7 @@ options =
   reporter:
     alias: "r"
     description: "Specify the reporter to use\n"
-    default: "sepc"
+    default: "spec"
 
   help:
     alias: "h"
