@@ -6,16 +6,20 @@ CMD_PREFIX = ''
 
 stderr = ''
 stdout = ''
+report = ''
 exitStatus = null
 
 execCommand = (cmd, callback) ->
   stderr = ''
   stdout = ''
+  report = ''
   exitStatus = null
 
   cli = exec CMD_PREFIX + cmd, (error, out, err) ->
     stdout = out
     stderr = err
+    try
+      report = JSON.parse out
 
     if error
       exitStatus = error.code
@@ -50,5 +54,5 @@ describe "Command line interface", () ->
     it 'should exit with status 0', () ->
       assert.equal exitStatus, 0
 
-    it 'should print count of tests passing', () ->
-      assert.include stdout, '8 passing'
+    it 'should print count of tests will run', ->
+      assert.equal 8, report.tests.length
