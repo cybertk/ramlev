@@ -30,7 +30,7 @@ class Ramlev
       mocha = new Mocha config
       generateTests data, mocha, ->
         mocha.run ->
-          callback(null, stats)
+          callback(null, mocha.reporter.stats)
 
 
 module.exports = Ramlev

@@ -68,15 +68,16 @@ describe "Command line interface", () ->
     it 'should skip test when no schema/example section', ->
       assert.equal report.pending[0].fullTitle, '/songs GET request'
       assert.equal report.pending[1].fullTitle, '/songs GET response'
-  # describe "Arguments with invalidated raml", () ->
-  #
-  #   before (done) ->
-  #     cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml"
-  #
-  #     execCommand cmd, done
-  #
-  #   it 'should exit with status 1', () ->
-  #     assert.equal exitStatus, 1
-  #
-  #   it 'should print count of tests passing', () ->
-  #     assert.include stdout, '8 passing'
+
+  describe "Arguments with invalidated raml", () ->
+
+    before (done) ->
+      cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml"
+
+      execCommand cmd, done
+
+    it 'should exit with status 1', () ->
+      assert.equal exitStatus, 1
+
+    it 'should test failed on invalidated example', () ->
+       assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'

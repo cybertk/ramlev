@@ -5,7 +5,8 @@ Test = Mocha.Test
 Suite = Mocha.Suite
 
 raml = require 'raml-parser'
-validate = require('tv4').validate
+tv4 = require 'tv4'
+
 
 _generateTests = (source, mocha, callback) ->
 
@@ -21,6 +22,7 @@ _generateTests = (source, mocha, callback) ->
     console.log(error)
     callback()
 
+
 _validatable = (body) ->
 
   return false if not body
@@ -31,7 +33,16 @@ _validatable = (body) ->
   return true if json.example and json.schema
   false
 
+
+_validate = (body) ->
+
+  example = JSON.parse body['application/json'].example
+  schema = JSON.parse body['application/json'].schema
+  tv4.validate example, schema
+
+
 _traverse = (ramlObj, parentUrl, parentSuite) ->
+
   for i of ramlObj.resources
     resource = ramlObj.resources[i]
 
@@ -46,25 +57,27 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
       endpoint = resource.methods[j]
       method = endpoint.method
 
-      console.error(endpoint)
       # Request
       if not _validatable(endpoint.body)
         suite.addTest new Test "#{method.toUpperCase()} request"
       else
         suite.addTest new Test "#{method.toUpperCase()} request", ->
-          true.should.equal true
+          true.should.equal _validate endpoint.body
 
       # Response
       if not endpoint.responses
         suite.addTest new Test "#{method.toUpperCase()} response"
 
-      for status, body of endpoint.responses
-        console.error(status, body)
+      for status, res of endpoint.responses
 
-        suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
-          true.should.equal true
+        if not _validatable(res.body)
+          suite.addTest new Test "#{method.toUpperCase()} response #{status}"
+        else
+          suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
+            true.should.equal _validate res.body
 
     _traverse resource, url, parentSuite
+
 
 generateTests = (source, mocha, callback) ->
 
