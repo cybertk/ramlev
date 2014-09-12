@@ -1,4 +1,4 @@
-# raml-example-validator
+**ramlev** is a simple RAML Example Validator, which is used to validate the examples defined in RAML against its schema.
 
 [![Build Status](http://img.shields.io/travis/cybertk/raml-example-validator.svg?style=flat)](https://travis-ci.org/cybertk/raml-example-validator)
 

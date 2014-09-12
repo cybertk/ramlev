@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cybertk/raml-example-validator.git"
+    "url": "https://github.com/cybertk/ramlev.git"
   },
   "keywords": [
     "RAML",
@@ -23,9 +23,9 @@
   "author": "Quanlong",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cybertk/raml-example-validator/issues"
+    "url": "https://github.com/cybertk/ramlev/issues"
   },
-  "homepage": "https://github.com/cybertk/raml-example-validator",
+  "homepage": "https://github.com/cybertk/ramlev",
   "dependencies": {
     "coffee-script": "^1.8.0",
     "mocha": "git://github.com/cybertk/mocha.git#e256565cd",
