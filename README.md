@@ -6,7 +6,7 @@
 
 [Node.js][] and [NPM][] is required.
 
-    $ npm install -g raml-example-validator
+    $ npm install -g ramlev
 
 [Node.js]: https://npmjs.org/
 [NPM]: https://npmjs.org/
