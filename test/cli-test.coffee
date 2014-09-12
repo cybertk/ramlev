@@ -56,40 +56,55 @@ describe "Command line interface", ->
       it 'should print using the new reporter', ->
         assert.include stdout, 'passing'
 
-  describe "Arguments with validated raml", ->
+  describe "Arguments with existing raml", ->
 
-    before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/song.raml -r json"
+    describe "when executing command with simple RAML", ->
 
-      execCommand cmd, done
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/song.raml -r json"
 
-    it 'should exit with status 0', ->
-      assert.equal exitStatus, 0
+        execCommand cmd, done
 
-    it 'should print count of tests will run', ->
-      assert.equal 8, report.tests.length
+      it 'should exit with status 0', ->
+        assert.equal exitStatus, 0
 
-    it 'should print correct title for request', ->
-      assert.equal report.tests[0].fullTitle, '/songs GET request'
-      assert.equal report.tests[4].fullTitle, '/songs/{songId} GET request'
+      it 'should print count of tests will run', ->
+        assert.equal 8, report.tests.length
 
-    it 'should print correct title for response', ->
-      assert.equal report.tests[1].fullTitle, '/songs GET response'
-      assert.equal report.tests[5].fullTitle, '/songs/{songId} GET response 200'
+      it 'should print correct title for request', ->
+        assert.equal report.tests[0].fullTitle, '/songs GET request'
+        assert.equal report.tests[4].fullTitle, '/songs/{songId} GET request'
 
-    it 'should skip test when no schema/example section', ->
-      assert.equal report.pending[0].fullTitle, '/songs GET request'
-      assert.equal report.pending[1].fullTitle, '/songs GET response'
+      it 'should print correct title for response', ->
+        assert.equal report.tests[1].fullTitle, '/songs GET response'
+        assert.equal report.tests[5].fullTitle, '/songs/{songId} GET response 200'
 
-  describe 'Arguments with invalidated raml', ->
+      it 'should skip test when no schema/example section', ->
+        assert.equal report.pending[0].fullTitle, '/songs GET request'
+        assert.equal report.pending[1].fullTitle, '/songs GET response'
 
-    before (done) ->
-      cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml -r json"
 
-      execCommand cmd, done
+    describe 'when executing command with invalid RAML', ->
 
-    it 'should exit with status 1', ->
-      assert.equal exitStatus, 1
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml -r json"
 
-    it 'should test failed on invalidated example', ->
-       assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
+        execCommand cmd, done
+
+      it 'should exit with status 1', ->
+        assert.equal exitStatus, 1
+
+      it 'should test failed on invalidated example', ->
+         assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
+
+
+    describe 'when executing command and RAML has defined mediaType in root section', ->
+
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/media-type.raml -r json"
+
+        execCommand cmd, done
+
+      it 'should validate examples defined in RAML', ->
+        assert.equal report.stats.tests, 2
+        assert.equal report.stats.passes, 1
