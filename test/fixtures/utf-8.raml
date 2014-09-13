@@ -1,0 +1,21 @@
+#%RAML 0.8
+
+baseUri: http://example.api.com/{version}
+version: v1
+title: Foo
+mediaType: application/json
+
+/example:
+  get:
+    responses:
+      200:
+        body:
+          schema: |
+            { "$schema": "http://json-schema.org/schema",
+              "type": "object",
+              "properties": {
+                "foo":  { "type": "string" }
+              }
+            }
+          example: |
+            { "foo": "中文" }

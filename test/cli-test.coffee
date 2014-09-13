@@ -108,3 +108,28 @@ describe "Command line interface", ->
       it 'should validate examples defined in RAML', ->
         assert.equal report.stats.tests, 4
         assert.equal report.stats.passes, 2
+
+
+    describe 'when executing command and RAML example is encoded in UTF-8', ->
+
+      describe 'and example in embedded in RAML', ->
+
+        before (done) ->
+          cmd = "./bin/ramlev ./test/fixtures/utf-8.raml -r json"
+
+          execCommand cmd, done
+
+        it 'should validate examples defined in RAML', ->
+          assert.equal report.stats.tests, 2
+          assert.equal report.stats.passes, 1
+
+      describe 'and example in included in RAML', ->
+
+        before (done) ->
+          cmd = "./bin/ramlev ./test/fixtures/utf-8-include.raml -r json"
+
+          execCommand cmd, done
+
+        it 'should validate examples defined in RAML', ->
+          assert.equal report.stats.tests, 2
+          assert.equal report.stats.passes, 1
