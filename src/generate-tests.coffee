@@ -4,6 +4,7 @@ Suite = Mocha.Suite
 
 raml = require 'raml-parser'
 chai = require 'chai'
+jsonlint = require 'jsonlint'
 
 chai.should()
 chai.use(require 'chai-json-schema')
@@ -22,8 +23,8 @@ _validatable = (body) ->
 
 _validate = (body) ->
 
-  example = JSON.parse body['application/json'].example
-  schema = JSON.parse body['application/json'].schema
+  example = jsonlint.parse body['application/json'].example
+  schema = jsonlint.parse body['application/json'].schema
   example.should.be.jsonSchema schema
 
 
