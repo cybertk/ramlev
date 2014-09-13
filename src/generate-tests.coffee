@@ -1,11 +1,12 @@
-require('chai').should()
-
 Mocha = require 'mocha'
 Test = Mocha.Test
 Suite = Mocha.Suite
 
 raml = require 'raml-parser'
-tv4 = require 'tv4'
+chai = require 'chai'
+
+chai.should()
+chai.use(require 'chai-json-schema')
 
 
 _validatable = (body) ->
@@ -23,7 +24,7 @@ _validate = (body) ->
 
   example = JSON.parse body['application/json'].example
   schema = JSON.parse body['application/json'].schema
-  tv4.validate example, schema
+  example.should.be.jsonSchema schema
 
 
 _traverse = (ramlObj, parentUrl, parentSuite) ->
@@ -47,7 +48,7 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
         suite.addTest new Test "#{method.toUpperCase()} request"
       else
         suite.addTest new Test "#{method.toUpperCase()} request", ->
-          true.should.equal _validate endpoint.body
+          _validate endpoint.body
 
       # Response
       if not endpoint.responses
@@ -60,7 +61,7 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
         else
           body = res.body
           suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
-            true.should.equal _validate body
+            _validate body
 
     _traverse resource, url, parentSuite
 

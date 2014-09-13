@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/cybertk/ramlev",
   "dependencies": {
+    "chai": "^1.9.1",
+    "chai-json-schema": "^1.1.0",
     "coffee-script": "^1.8.0",
     "mocha": "git://github.com/cybertk/mocha.git#e256565cd",
-    "chai": "^1.9.1",
     "optimist": "^0.6.1",
-    "raml-parser": "^0.8.7",
-    "tv4": "^1.1.0"
+    "raml-parser": "^0.8.7"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
