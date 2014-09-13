@@ -17,7 +17,10 @@ class Ramlev
       return callback(loadingError, {}) if loadingError
 
       mocha = new Mocha config.options
-      generateTests data, mocha, ->
+      generateTests data, mocha, (error) ->
+        console.error(error)
+        return callback(error, {}) if error
+
         mocha.run ->
           callback(null, mocha.reporter.stats)
 

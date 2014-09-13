@@ -55,11 +55,12 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
 
       for status, res of endpoint.responses
 
-        if not _validatable(res.body)
+        if not res or not _validatable(res.body)
           suite.addTest new Test "#{method.toUpperCase()} response #{status}"
         else
+          body = res.body
           suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
-            true.should.equal _validate res.body
+            true.should.equal _validate body
 
     _traverse resource, url, parentSuite
 
@@ -71,9 +72,7 @@ generateTests = (source, mocha, callback) ->
     _traverse raml, '', mocha.suite
 
     callback()
-  , (error) ->
-    console.log(error)
-    callback()
+  , callback
 
 
 module.exports = generateTests

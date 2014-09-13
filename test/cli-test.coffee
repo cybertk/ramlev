@@ -106,5 +106,5 @@ describe "Command line interface", ->
         execCommand cmd, done
 
       it 'should validate examples defined in RAML', ->
-        assert.equal report.stats.tests, 2
-        assert.equal report.stats.passes, 1
+        assert.equal report.stats.tests, 4
+        assert.equal report.stats.passes, 2

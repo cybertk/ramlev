@@ -19,3 +19,16 @@ mediaType: application/json
             }
           example: |
             { "foo": "bar" }
+  post:
+    body:
+      schema: |
+        { "$schema": "http://json-schema.org/schema",
+          "type": "object",
+          "properties": {
+            "foo":  { "type": "string" }
+          }
+        }
+      example: |
+        { "foo": "bar" }
+    responses:
+      200:
