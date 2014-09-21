@@ -5,6 +5,7 @@ Suite = Mocha.Suite
 raml = require 'raml-parser'
 chai = require 'chai'
 jsonlint = require 'jsonlint'
+_ = require 'underscore'
 
 chai.should()
 chai.use(require 'chai-json-schema')
@@ -60,9 +61,9 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
         if not res or not _validatable(res.body)
           suite.addTest new Test "#{method.toUpperCase()} response #{status}"
         else
-          body = res.body
-          suite.addTest new Test "#{method.toUpperCase()} response #{status}", ->
-            _validate body
+          suite.addTest new Test "#{method.toUpperCase()} response #{status}", _.bind ->
+            _validate this.body
+          , { body: res.body}
 
     _traverse resource, url, parentSuite
 

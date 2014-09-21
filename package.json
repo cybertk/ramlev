@@ -33,7 +33,8 @@
     "jsonlint": "^1.6.2",
     "mocha": "git://github.com/cybertk/mocha.git#e256565cd",
     "optimist": "^0.6.1",
-    "raml-parser": "^0.8.7"
+    "raml-parser": "^0.8.7",
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

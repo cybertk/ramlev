@@ -86,16 +86,42 @@ describe "Command line interface", ->
 
     describe 'when executing command with invalid RAML', ->
 
-      before (done) ->
-        cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml -r json"
+      describe 'contains 1 error', ->
+        before (done) ->
+          cmd = "./bin/ramlev ./test/fixtures/invalid_1.raml -r json"
 
-        execCommand cmd, done
+          execCommand cmd, done
 
-      it 'should exit with status 1', ->
-        assert.equal exitStatus, 1
+        it 'should exit with status 1', ->
+          assert.equal exitStatus, 1
 
-      it 'should test failed on invalidated example', ->
-         assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
+        it 'should report correct test stats', ->
+          assert.equal report.stats.tests, 8
+          assert.equal report.stats.passes, 0
+          assert.equal report.stats.failures, 1
+          assert.equal report.stats.pending, 7
+
+        it 'should failed on invalidated example', ->
+          assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
+
+      describe 'contains multiple error', ->
+        before (done) ->
+          cmd = "./bin/ramlev ./test/fixtures/invalid_2.raml -r json"
+
+          execCommand cmd, done
+
+        it 'should exit with status 1', ->
+          assert.equal exitStatus, 1
+
+        it 'should report correct test stats', ->
+          assert.equal report.stats.tests, 8
+          assert.equal report.stats.passes, 1
+          assert.equal report.stats.failures, 2
+          assert.equal report.stats.pending, 5
+
+        it 'should failed on invalidated example', ->
+          assert.equal report.failures[0].fullTitle, '/songs/search GET response 200'
+          assert.equal report.failures[1].fullTitle, '/songs/authors GET response 200'
 
 
     describe 'when executing command and RAML has defined mediaType in root section', ->

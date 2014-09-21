@@ -1,0 +1,64 @@
+#%RAML 0.8
+
+title: World Music API
+baseUri: http://example.api.com/{version}
+version: v1
+mediaType: application/json
+
+traits:
+  - paged:
+      queryParameters:
+        pages:
+          description: The number of pages to return
+          type: number
+/songs:
+  is: [ paged ]
+  get:
+    queryParameters:
+      genre:
+        description: filter the songs by genre
+
+  /{songId}:
+    get:
+      responses:
+        200:
+          body:
+            schema: |
+              { "$schema": "http://json-schema.org/schema",
+                "type": "object",
+                "properties": {
+                  "title":  { "type": "string" }
+                }
+              }
+            example: |
+              {"title": "foo"}
+
+  /search:
+    get:
+      responses:
+        200:
+          body:
+            schema: |
+              { "$schema": "http://json-schema.org/schema",
+                "type": "object",
+                "properties": {
+                  "foo":  { "type": "integer" }
+                }
+              }
+            example: |
+              {"foo": "bar"}
+
+  /authors:
+    get:
+      responses:
+        200:
+          body:
+            schema: |
+              { "$schema": "http://json-schema.org/schema",
+                "type": "object",
+                "properties": {
+                  "bar":  { "type": "string" }
+                }
+              }
+            example: |
+              {"bar": 1}
