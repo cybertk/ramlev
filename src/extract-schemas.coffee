@@ -6,17 +6,17 @@ module.exports = extractSchemas = (schema) ->
   return retval unless schema.resources
 
   _.each schema.resources, (resource) ->
-    return unless resource.methods
+    return unless resource and resource.methods
 
     _.each resource.methods, (method) ->
-      return unless method.responses
+      return unless method and method.responses
 
       _.each method.responses, (response, status) ->
-        return unless response.body
+        return unless response and response.body
 
         _.each response.body, (body, type) ->
           return if type isnt 'application/json'
-          return unless body.schema
+          return unless body and body.schema
 
           retval.push JSON.parse body.schema
 
