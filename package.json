@@ -1,6 +1,6 @@
 {
   "name": "ramlev",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "RAML example validator",
   "main": "lib/ramlev.js",
   "bin": {
