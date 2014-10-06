@@ -179,3 +179,13 @@ describe "Command line interface", ->
 
       it 'should exit with status 0', ->
         assert.equal exitStatus, 0
+
+    describe "when executing command with --fakeroot and --directory options", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/include_local_refs.raml -r json -f http://example.com -d #{__dirname}/fixtures"
+
+        execCommand cmd, done
+
+      it 'should exit with status 0', ->
+        assert.equal exitStatus, 0
