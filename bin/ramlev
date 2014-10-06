@@ -8,7 +8,7 @@ var version = parsePackageJson(path.join(__dirname, '../package.json'));
 
 var argv = optimist
     .usage("Usage: \n  ramlev <path to raml> [OPTIONS]" +
-    "\n\nExample: \n  " + "ramlev ./api.raml")
+    "\n\nExample: \n  " + "ramlev ./api.raml --fakeroot http://example.com")
     .options(Ramlev.options)
     .wrap(80)
     .argv;
