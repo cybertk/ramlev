@@ -159,3 +159,23 @@ describe "Command line interface", ->
         it 'should validate examples defined in RAML', ->
           assert.equal report.stats.tests, 2
           assert.equal report.stats.passes, 1
+
+    describe "when provided RAML path is absolute", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev #{__dirname}/fixtures/song.raml -r json"
+
+        execCommand cmd, done
+
+      it 'should exit with status 0', ->
+        assert.equal exitStatus, 0
+
+    describe "when executing command with RAML includes other RAMLs", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/include_other_raml.raml -r json"
+
+        execCommand cmd, done
+
+      it 'should exit with status 0', ->
+        assert.equal exitStatus, 0

@@ -2,7 +2,6 @@ Mocha = require 'mocha'
 Test = Mocha.Test
 Suite = Mocha.Suite
 
-raml = require 'raml-parser'
 chai = require 'chai'
 jsonlint = require 'jsonlint'
 _ = require 'underscore'
@@ -68,14 +67,8 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
     _traverse resource, url, parentSuite
 
 
-generateTests = (source, mocha, callback) ->
-
-  raml.load(source).then (raml) ->
-
-    _traverse raml, '', mocha.suite
-
-    callback()
-  , callback
+generateTests = (source, mocha) ->
+  _traverse source, '', mocha.suite
 
 
 module.exports = generateTests

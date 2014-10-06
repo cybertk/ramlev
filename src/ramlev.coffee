@@ -1,7 +1,6 @@
-fs = require 'fs'
-
 chai = require 'chai'
 Mocha = require 'mocha'
+raml = require 'raml-parser'
 generateTests = require './generate-tests'
 
 options = require './options'
@@ -16,16 +15,15 @@ class Ramlev
 
     chai.tv4.addSchema(id, json) for id, json of config.refs if config.refs
 
-    fs.readFile config.ramlPath, 'utf8', (loadingError, data) ->
-      return callback(loadingError, {}) if loadingError
-
+    raml.loadFile(config.ramlPath)
+    .then (raml) ->
       mocha = new Mocha config.options
-      generateTests data, mocha, (error) ->
-        console.error(error)
-        return callback(error, {}) if error
+      generateTests raml, mocha
+      mocha.run ->
+        callback(null, mocha.reporter.stats)
 
-        mocha.run ->
-          callback(null, mocha.reporter.stats)
+    , (error) ->
+      return callback(error, {})
 
 
 module.exports = Ramlev
