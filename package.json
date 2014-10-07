@@ -34,7 +34,7 @@
     "mocha": "git://github.com/cybertk/mocha.git#e256565cd",
     "optimist": "^0.6.1",
     "raml-parser": "^0.8.7",
-    "refaker": "^0.1.3",
+    "refaker": "^0.1.5",
     "underscore": "^1.7.0"
   },
   "devDependencies": {
