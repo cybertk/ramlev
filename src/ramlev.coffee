@@ -1,7 +1,12 @@
 chai = require 'chai'
 Mocha = require 'mocha'
+
+_ = require 'underscore'
+refaker = require 'refaker'
+
 raml = require 'raml-parser'
 generateTests = require './generate-tests'
+extractSchemas = require './extract-schemas'
 
 options = require './options'
 
@@ -17,14 +22,24 @@ class Ramlev
 
     raml.loadFile(config.ramlPath)
     .then (raml) ->
-      mocha = new Mocha config.options
-      generateTests raml, mocha
-      mocha.run ->
-        callback(null, mocha.reporter.stats)
+      refaker_keys = ['fakeroot', 'directory']
+      refaker_opts = _.pick(config.options, refaker_keys)
 
+      runTests = ->
+        mocha = new Mocha _.omit(config.options, refaker_keys)
+        generateTests raml, mocha
+        mocha.run ->
+          callback(null, mocha.reporter.stats)
+
+      refaker _.extend({ schemas: extractSchemas(raml) }, refaker_opts), (err, refs) ->
+        chai.tv4.addSchema(id, json) for id, json of refs
+
+        if err
+          callback(err, {})
+        else
+          runTests()
     , (error) ->
       return callback(error, {})
-
 
 module.exports = Ramlev
 module.exports.options = options

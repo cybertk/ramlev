@@ -1,0 +1,28 @@
+#%RAML 0.8
+
+title: Sample people API
+baseUri: http://example.api.com/{version}
+version: v1
+
+/people:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+              { "$schema": "http://json-schema.org/schema",
+                "type": "object",
+                "properties": {
+                  "all": {
+                    "type": "array",
+                    "items": { "$ref": "http://example.com/person-schema.json" }
+                  }
+                },
+                "required": ["all"]
+              }
+
+            example: |
+              { "all": [
+                { "firstName": "John", "lastName": "Doe" }
+              ] }
