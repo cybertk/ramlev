@@ -29,16 +29,19 @@
 ## Command Line Options
 
     $ ramlev --help
+
     Usage:
       ramlev <path to raml> [OPTIONS]
 
     Example:
-      ramlev ./api.raml
+      ramlev ./api.raml --fakeroot http://example.com
 
     Options:
-      --reporter, -r       Specify the reporter to use. [spec]
-      --help               Show usage information.
-      --version            Show version number.
+      --fakeroot, -f   Used to resolve $ref's using a directory as absolute URI
+      --directory, -d  Used with the --fakeroot option for resoving $ref's
+      --reporter, -r   Specify the reporter to use [default: "spec"]
+      --help, -h       Show usage information.
+      --version        Show version number.
 
 ## Contribution
 
