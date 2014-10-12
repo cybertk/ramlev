@@ -28,8 +28,8 @@ class Ramlev
       runTests = ->
         mocha = new Mocha _.omit(config.options, refaker_keys)
         generateTests raml, mocha
-        mocha.run ->
-          callback(null, mocha.reporter.stats)
+        mocha.run (failures)->
+          callback(null, failures)
 
       try
         refaker _.extend({ schemas: extractSchemas(raml) }, refaker_opts), (err, refs) ->
