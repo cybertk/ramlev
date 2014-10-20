@@ -17,7 +17,18 @@ traits:
         description: filter the songs by genre
   post:
   /{songId}:
-    get:
+    put:
+      body:
+        application/json:
+          schema: |
+            { "$schema": "http://json-schema.org/schema",
+              "type": "object",
+              "properties": {
+                "title":  { "type": "string" }
+              }
+            }
+          example: |
+            {"title": "foo"}
       responses:
         200:
           body:

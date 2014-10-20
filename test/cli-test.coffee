@@ -97,12 +97,12 @@ describe "Command line interface", ->
 
         it 'should report correct test stats', ->
           assert.equal report.stats.tests, 8
-          assert.equal report.stats.passes, 0
+          assert.equal report.stats.passes, 1
           assert.equal report.stats.failures, 1
-          assert.equal report.stats.pending, 7
+          assert.equal report.stats.pending, 6
 
         it 'should failed on invalidated example', ->
-          assert.equal report.failures[0].fullTitle, '/songs/{songId} GET response 200'
+          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT response 200'
 
       describe 'contains multiple error', ->
         before (done) ->
@@ -116,12 +116,13 @@ describe "Command line interface", ->
         it 'should report correct test stats', ->
           assert.equal report.stats.tests, 8
           assert.equal report.stats.passes, 1
-          assert.equal report.stats.failures, 2
-          assert.equal report.stats.pending, 5
+          assert.equal report.stats.failures, 3
+          assert.equal report.stats.pending, 4
 
         it 'should failed on invalidated example', ->
-          assert.equal report.failures[0].fullTitle, '/songs/search GET response 200'
-          assert.equal report.failures[1].fullTitle, '/songs/authors GET response 200'
+          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT request'
+          assert.equal report.failures[1].fullTitle, '/songs/search GET response 200'
+          assert.equal report.failures[2].fullTitle, '/songs/authors GET response 200'
 
 
     describe 'when executing command and RAML has defined mediaType in root section', ->

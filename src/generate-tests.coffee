@@ -12,11 +12,9 @@ chai.use(require 'chai-json-schema')
 
 _validatable = (body) ->
 
-  return false if not body
+  return false unless body and body?['application/json']
 
   json = body['application/json']
-  return false if not json
-
   return true if json.example and json.schema
   false
 
@@ -48,8 +46,9 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
       if not _validatable(endpoint.body)
         suite.addTest new Test "#{method.toUpperCase()} request"
       else
-        suite.addTest new Test "#{method.toUpperCase()} request", ->
-          _validate endpoint.body
+        suite.addTest new Test "#{method.toUpperCase()} request", _.bind ->
+          _validate @body
+        , {body: endpoint.body}
 
       # Response
       if not endpoint.responses
@@ -61,7 +60,7 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
           suite.addTest new Test "#{method.toUpperCase()} response #{status}"
         else
           suite.addTest new Test "#{method.toUpperCase()} response #{status}", _.bind ->
-            _validate this.body
+            _validate @body
           , { body: res.body}
 
     _traverse resource, url, parentSuite
