@@ -31,16 +31,17 @@ class Ramlev
         mocha.run (failures)->
           callback(null, failures)
 
-      try
-        refaker _.extend({ schemas: extractSchemas(raml) }, refaker_opts), (err, refs) ->
-          chai.tv4.addSchema(id, json) for id, json of refs
-
-          if err
-            callback(err, {})
-          else
-            runTests()
-      catch e
-        callback(e, {})
+      runTests()
+      # try
+      #   refaker _.extend({ schemas: extractSchemas(raml) }, refaker_opts), (err, refs) ->
+      #     chai.tv4.addSchema(id, json) for id, json of refs
+      #
+      #     if err
+      #       callback(err, {})
+      #     else
+      #       runTests()
+      # catch e
+      #   callback(e, {})
     , (error) ->
       return callback(error, {})
 
