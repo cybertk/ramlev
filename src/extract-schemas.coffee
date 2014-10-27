@@ -3,8 +3,7 @@ _ = require 'underscore'
 parse = (json) ->
   try
     JSON.parse json
-  catch e
-    throw new Error "#{e} (#{json})"
+    # throw new Error "#{e} (#{json})"
 
 module.exports = extractSchemas = (schema) ->
   retval = []
@@ -24,7 +23,8 @@ module.exports = extractSchemas = (schema) ->
           return if type isnt 'application/json'
           return unless body and body.schema
 
-          retval.push parse body.schema
+          # try
+          #   retval.push JSON.parse body.schema
 
     retval = retval.concat(extractSchemas(resource)) if resource.resources
 

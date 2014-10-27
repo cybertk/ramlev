@@ -1,14 +1,17 @@
 Mocha = require 'mocha'
-Test = Mocha.Test
-Suite = Mocha.Suite
-
 chai = require 'chai'
 jsonlint = require 'jsonlint'
 _ = require 'underscore'
+csonschema = require 'csonschema'
+
+Test = Mocha.Test
+Suite = Mocha.Suite
 
 chai.should()
 chai.use(require 'chai-json-schema')
 
+String::contains = (it) ->
+  @indexOf(it) != -1
 
 _validatable = (body) ->
 
@@ -22,7 +25,14 @@ _validatable = (body) ->
 _validate = (body) ->
 
   example = jsonlint.parse body['application/json'].example
-  schema = jsonlint.parse body['application/json'].schema
+  schema = body['application/json'].schema
+  if schema.contains('$schema')
+    # jsonschema
+    schema = jsonlint.parse schema
+  else
+    # csonschema
+    schema = csonschema.parse schema
+
   example.should.be.jsonSchema schema
 
 
