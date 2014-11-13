@@ -36,7 +36,7 @@
     "mocha": "~2.0.1",
     "optimist": "~0.6.1",
     "raml-parser": "~0.8.7",
-    "refaker": "~0.2.0",
+    "refaker": "~0.2.2",
     "underscore": "~1.7.0"
   },
   "devDependencies": {
