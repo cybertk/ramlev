@@ -25,9 +25,9 @@ class Ramlev
       refaker_keys = ['fakeroot', 'directory']
       refaker_opts = _.pick(config.options, refaker_keys)
 
-      runTests = ->
+      runTests = (schemas) ->
         mocha = new Mocha _.omit(config.options, refaker_keys)
-        generateTests raml, mocha
+        generateTests raml, mocha, schemas
         mocha.run (failures)->
           callback(null, failures)
 

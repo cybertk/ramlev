@@ -24,8 +24,7 @@ _validatable = (body) ->
   false
 
 
-_validate = (body) ->
-
+_validate = (body, schemas) ->
   example = jsonlint.parse body['application/json'].example
   schema = body['application/json'].schema
   if schema.contains('$schema')
@@ -45,7 +44,7 @@ _validate = (body) ->
   example.should.be.jsonSchema schema
 
 
-_traverse = (ramlObj, parentUrl, parentSuite) ->
+_traverse = (ramlObj, parentUrl, parentSuite, fullSchemas) ->
 
   for i of ramlObj.resources
     resource = ramlObj.resources[i]
@@ -66,7 +65,7 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
         suite.addTest new Test "#{method.toUpperCase()} request"
       else
         suite.addTest new Test "#{method.toUpperCase()} request", _.bind ->
-          _validate @body
+          _validate @body, fullSchemas
         , {body: endpoint.body}
 
       # Response
@@ -79,14 +78,14 @@ _traverse = (ramlObj, parentUrl, parentSuite) ->
           suite.addTest new Test "#{method.toUpperCase()} response #{status}"
         else
           suite.addTest new Test "#{method.toUpperCase()} response #{status}", _.bind ->
-            _validate @body
+            _validate @body, fullSchemas
           , { body: res.body}
 
-    _traverse resource, url, parentSuite
+    _traverse resource, url, parentSuite, fullSchemas
 
 
-generateTests = (source, mocha) ->
-  _traverse source, '', mocha.suite
+generateTests = (source, mocha, schemas) ->
+  _traverse source, '', mocha.suite, schemas
 
 
 module.exports = generateTests
