@@ -3,17 +3,12 @@ chai = require 'chai'
 jsonlint = require 'jsonlint'
 _ = require 'underscore'
 csonschema = require 'csonschema'
-refaker = require 'refaker'
-extractSchemas = require './extract-schemas'
 
 Test = Mocha.Test
 Suite = Mocha.Suite
 
 chai.should()
 chai.use(require 'chai-json-schema')
-
-String::contains = (it) ->
-  @indexOf(it) != -1
 
 _validatable = (body) ->
 
@@ -27,19 +22,14 @@ _validatable = (body) ->
 _validate = (body, schemas) ->
   example = jsonlint.parse body['application/json'].example
   schema = body['application/json'].schema
-  if schema.contains('$schema')
+
+  if schema.indexOf('$schema') isnt -1
     # jsonschema
-    schema = jsonlint.parse schema
+    offset = body['application/json'].__offset
+    schema = if offset >= 0 then schemas[offset] else jsonlint.parse schema
   else
     # csonschema
     schema = csonschema.parse schema
-  # console.error schema
-  # if schema?['$schema']
-  #   # jsonschema
-  #   schema = jsonlint.parse schema
-  # else
-  #   # csonschema
-  #   schema = csonschemaa.parse schema
 
   example.should.be.jsonSchema schema
 
@@ -83,9 +73,10 @@ _traverse = (ramlObj, parentUrl, parentSuite, fullSchemas) ->
 
     _traverse resource, url, parentSuite, fullSchemas
 
+generateTests = (source, mocha, schemas, references) ->
+  for id, json of references
+    chai.tv4.addSchema(id, json)
 
-generateTests = (source, mocha, schemas) ->
   _traverse source, '', mocha.suite, schemas
-
 
 module.exports = generateTests

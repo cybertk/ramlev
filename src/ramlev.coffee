@@ -18,30 +18,26 @@ class Ramlev
   run: (callback) ->
     config = @configuration
 
-    chai.tv4.addSchema(id, json) for id, json of config.refs if config.refs
-
     raml.loadFile(config.ramlPath)
     .then (raml) ->
       refaker_keys = ['fakeroot', 'directory']
       refaker_opts = _.pick(config.options, refaker_keys)
 
-      runTests = (schemas) ->
+      runTests = (schemas, references) ->
         mocha = new Mocha _.omit(config.options, refaker_keys)
-        generateTests raml, mocha, schemas
+        generateTests raml, mocha, schemas, references
         mocha.run (failures)->
           callback(null, failures)
 
-      runTests()
-      # try
-      #   refaker _.extend({ schemas: extractSchemas(raml) }, refaker_opts), (err, refs) ->
-      #     chai.tv4.addSchema(id, json) for id, json of refs
-      #
-      #     if err
-      #       callback(err, {})
-      #     else
-      #       runTests()
-      # catch e
-      #   callback(e, {})
+      try
+        params = _.extend
+          schemas: extractSchemas(raml)
+        , refaker_opts
+
+        refaker params, (err, refs, schemas) ->
+          if err then callback(err, {}) else runTests(schemas, _.extend({}, config.refs, refs))
+      catch e
+        callback(e, {})
     , (error) ->
       return callback(error, {})
 

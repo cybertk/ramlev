@@ -23,8 +23,8 @@ module.exports = extractSchemas = (schema) ->
           return if type isnt 'application/json'
           return unless body and body.schema
 
-          # try
-          #   retval.push JSON.parse body.schema
+          if body.schema.indexOf('$schema') isnt -1
+            response.body[type].__offset = retval.push(parse body.schema) - 1
 
     retval = retval.concat(extractSchemas(resource)) if resource.resources
 
