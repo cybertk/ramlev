@@ -164,7 +164,7 @@ describe "Command line interface", ->
     describe "when provided RAML path is absolute", ->
 
       before (done) ->
-        cmd = "./bin/ramlev #{__dirname}/fixtures/song.raml -r json"
+        cmd = "./bin/ramlev #{__dirname}/../fixtures/song.raml -r json"
 
         execCommand cmd, done
 
@@ -184,7 +184,7 @@ describe "Command line interface", ->
     describe "when executing command with --fakeroot and --directory options", ->
 
       before (done) ->
-        cmd = "./bin/ramlev ./test/fixtures/include_local_refs.raml -r json -f http://example.com -d #{__dirname}/fixtures"
+        cmd = "./bin/ramlev ./test/fixtures/include_local_refs.raml -r json -f http://example.com -d #{__dirname}/../fixtures"
 
         execCommand cmd, done
 

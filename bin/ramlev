@@ -42,12 +42,6 @@ configuration = {
 
 ramlev = new Ramlev(configuration);
 
-process.on( 'SIGINT', function() {
-  ramlev.transactionsComplete(function() {
-    process.exit(0);
-  });
-});
-
 ramlev.run(function(error, failures){
   if (error) {
     if (error.message) {
