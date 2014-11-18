@@ -11,17 +11,23 @@ String::contains = (it) ->
 
 class Test
   constructor: () ->
-    @name = ''
-    @skip = false
-
+    @path = ''
+    @method = ''
+    @status = ''
     @schema = ''
     @example = ''
 
+  name: ->
+    return ''
+
+  skip: ->
+    return true if !@schema and !@example
+    false
+
   run: ->
-    @assertExample()
+    @assertExample() unless @skip()
 
   parseSchema: (source) =>
-    console.log typeof(source), source
     if source.contains('$schema')
       # jsonschema draft 4 only
       JSON.parse source

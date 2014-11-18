@@ -20,6 +20,8 @@ describe 'Test', ->
 
       it 'should invoke #assertExample', ->
         test = new Test()
+        test.example = 'E'
+        test.schema = 'S'
         sinon.stub test, 'assertExample'
 
         test.run()
@@ -27,14 +29,27 @@ describe 'Test', ->
 
       it 'should not modify properties', ->
         test = new Test()
-        test.name = 'Test it'
+        test.path = '/path'
+        test.method = 'M'
+        test.status = 200
         test.schema = 'schema'
         test.example = 'example'
 
         sinon.stub test, 'assertExample'
-        assert.equal test.name, 'Test it'
+        assert.equal test.path, '/path'
+        assert.equal test.method, 'M'
+        assert.equal test.status, 200
         assert.equal test.schema, 'schema'
         assert.equal test.example, 'example'
+
+    describe 'against test skiped', ->
+      it 'should not invoke #assertExample', ->
+        test = new Test()
+        sinon.stub test, 'assertExample'
+
+        test.run()
+        test.assertExample.should.not.be.called
+
 
 
   describe '#assertExample', ->
@@ -87,3 +102,21 @@ describe 'Test', ->
         test.example = JSON.stringify
           name: 1
         assert.throw test.assertExample, chai.AssertionError
+
+  describe '#skip', ->
+
+    it 'should return true when test dose not have body and schema', ->
+        test = new Test()
+        assert.ok test.skip()
+
+    it 'should return false when test does not have body', ->
+        test = new Test()
+        test.schema = 'SCHEMA'
+
+        assert.notOk test.skip()
+
+    it 'should return false when test does not have schema', ->
+        test = new Test()
+        test.example = 'BODY'
+
+        assert.notOk test.skip()
