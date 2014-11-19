@@ -89,10 +89,10 @@ describe "Command line interface", ->
           assert.equal exitStatus, 1
 
         it 'should report correct test stats', ->
-          assert.equal report.stats.tests, 2
+          assert.equal report.stats.tests, 3
           assert.equal report.stats.passes, 1
           assert.equal report.stats.failures, 1
-          assert.equal report.stats.pending, 0
+          assert.equal report.stats.pending, 1
 
         it 'should failed on invalidated example', ->
           assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT response 200'

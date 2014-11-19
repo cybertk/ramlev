@@ -24,8 +24,8 @@ class Test
       "#{@method} request"
 
   skip: ->
-    return true if !@schema and !@example
-    false
+    return false if @schema and @example
+    true
 
   schemaVersion: ->
     if @schema?.contains('$schema')

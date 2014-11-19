@@ -105,19 +105,26 @@ describe 'Test', ->
 
   describe '#skip', ->
 
-    it 'should return true when test dose not have body and schema', ->
+    it 'should return true when test dose not have example and schema', ->
         test = new Test()
         assert.ok test.skip()
 
-    it 'should return false when test does not have body', ->
+    it 'should return true when test does not have example', ->
         test = new Test()
         test.schema = 'SCHEMA'
 
-        assert.notOk test.skip()
+        assert.ok test.skip()
 
-    it 'should return false when test does not have schema', ->
+    it 'should return true when test does not have schema', ->
         test = new Test()
         test.example = 'BODY'
+
+        assert.ok test.skip()
+
+    it 'should return false when test have both example and schema', ->
+        test = new Test()
+        test.example = 'BODY'
+        test.schema = 'SCHEMA'
 
         assert.notOk test.skip()
 
@@ -135,7 +142,6 @@ describe 'Test', ->
         assert.equal test.schemaVersion(), 'jsonschema-draft-4'
 
     it 'should return "csonschema" when schema does not contains $schema', ->
-    it 'should return false when test does not have body', ->
         test = new Test()
         test.schema = 'SCHEMA'
 

@@ -15,6 +15,12 @@ traits:
     queryParameters:
       genre:
         description: filter the songs by genre
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {"title": "foo"}
   post:
   /{songId}:
     put:
