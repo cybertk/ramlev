@@ -69,20 +69,13 @@ describe "Command line interface", ->
         assert.equal exitStatus, 0
 
       it 'should print count of tests will run', ->
-        assert.equal 8, report.tests.length
+        assert.equal 2, report.tests.length
 
       it 'should print correct title for request', ->
-        assert.equal report.tests[0].fullTitle, '/songs GET request'
-        assert.equal report.tests[4].fullTitle, '/songs/{songId} GET request'
+        assert.equal report.tests[0].fullTitle, '/songs POST request'
 
       it 'should print correct title for response', ->
-        assert.equal report.tests[1].fullTitle, '/songs GET response'
-        assert.equal report.tests[5].fullTitle, '/songs/{songId} GET response 200'
-
-      it 'should skip test when no schema/example section', ->
-        assert.equal report.pending[0].fullTitle, '/songs GET request'
-        assert.equal report.pending[1].fullTitle, '/songs GET response'
-
+        assert.equal report.tests[1].fullTitle, '/songs/{songId} GET response 200'
 
     describe 'when executing command with invalid RAML', ->
 
@@ -96,10 +89,10 @@ describe "Command line interface", ->
           assert.equal exitStatus, 1
 
         it 'should report correct test stats', ->
-          assert.equal report.stats.tests, 8
+          assert.equal report.stats.tests, 2
           assert.equal report.stats.passes, 1
           assert.equal report.stats.failures, 1
-          assert.equal report.stats.pending, 6
+          assert.equal report.stats.pending, 0
 
         it 'should failed on invalidated example', ->
           assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT response 200'
@@ -114,10 +107,10 @@ describe "Command line interface", ->
           assert.equal exitStatus, 1
 
         it 'should report correct test stats', ->
-          assert.equal report.stats.tests, 8
+          assert.equal report.stats.tests, 4
           assert.equal report.stats.passes, 1
           assert.equal report.stats.failures, 3
-          assert.equal report.stats.pending, 4
+          assert.equal report.stats.pending, 0
 
         it 'should failed on invalidated example', ->
           assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT request'
@@ -133,7 +126,7 @@ describe "Command line interface", ->
         execCommand cmd, done
 
       it 'should validate examples defined in RAML', ->
-        assert.equal report.stats.tests, 4
+        assert.equal report.stats.tests, 2
         assert.equal report.stats.passes, 2
 
 
@@ -147,7 +140,7 @@ describe "Command line interface", ->
           execCommand cmd, done
 
         it 'should validate examples defined in RAML', ->
-          assert.equal report.stats.tests, 2
+          assert.equal report.stats.tests, 1
           assert.equal report.stats.passes, 1
 
       describe 'and example in included in RAML', ->
@@ -158,7 +151,7 @@ describe "Command line interface", ->
           execCommand cmd, done
 
         it 'should validate examples defined in RAML', ->
-          assert.equal report.stats.tests, 2
+          assert.equal report.stats.tests, 1
           assert.equal report.stats.passes, 1
 
     describe "when provided RAML path is absolute", ->

@@ -1,31 +1,9 @@
 _ = require 'underscore'
 
-parse = (json) ->
-  try
-    JSON.parse json
-  catch e
-    throw new Error "#{e} (#{json})"
-
-module.exports = extractSchemas = (schema) ->
+module.exports = extractSchemas = (tests) ->
   retval = []
-
-  return retval unless schema.resources
-
-  _.each schema.resources, (resource) ->
-    return unless resource and resource.methods
-
-    _.each resource.methods, (method) ->
-      return unless method and method.responses
-
-      _.each method.responses, (response, status) ->
-        return unless response and response.body
-
-        _.each response.body, (body, type) ->
-          return if type isnt 'application/json'
-          return unless body and body.schema
-
-          retval.push parse body.schema
-
-    retval = retval.concat(extractSchemas(resource)) if resource.resources
+  
+  _.each tests, (test) ->
+    retval.push(JSON.parse test.schema) if test.schemaVersion() is 'jsonschema-draft-4'
 
   retval

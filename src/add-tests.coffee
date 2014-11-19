@@ -4,7 +4,7 @@ _ = require 'underscore'
 Test = require './test'
 
 addTestIfNeeded = (tests, path, method, status, api) ->
-    return unless api.body
+    return unless api?.body
 
     test = new Test
 
