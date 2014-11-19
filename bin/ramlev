@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 var optimist = require('optimist');
-var parsePackageJson = require('../lib/parse-package-json');
 var path = require('path');
+var pjson = require('../package.json');
 var Ramlev = require('../lib/ramlev');
-
-var version = parsePackageJson(path.join(__dirname, '../package.json'));
 
 var argv = optimist
     .usage("Usage: \n  ramlev <path to raml> [OPTIONS]" +
@@ -21,7 +19,7 @@ if (argv.help === true) {
 }
 
 if (argv.version === true) {
-  console.log(version);
+  console.log(pjson.version);
   process.exit(0);
 }
 
@@ -41,12 +39,6 @@ configuration = {
 };
 
 ramlev = new Ramlev(configuration);
-
-process.on( 'SIGINT', function() {
-  ramlev.transactionsComplete(function() {
-    process.exit(0);
-  });
-});
 
 ramlev.run(function(error, failures){
   if (error) {

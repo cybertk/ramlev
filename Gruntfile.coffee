@@ -39,6 +39,8 @@ module.exports = (grunt) ->
           reporter: 'spec'
           require: 'coffee-script/register'
         src: ['test/**/*.coffee']
+        # src: ['test/acceptance/*.coffee']
+        # src: ['test/unit/*.coffee']
 
   grunt.registerTask "default", [
     "watch"
