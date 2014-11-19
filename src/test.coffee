@@ -13,27 +13,34 @@ class Test
   constructor: () ->
     @path = ''
     @method = ''
-    @status = ''
+    @status = 0
     @schema = ''
     @example = ''
 
   name: ->
-    return ''
+    if @status
+      "#{@method} response #{@status}"
+    else
+      "#{@method} request"
 
   skip: ->
     return true if !@schema and !@example
     false
 
+  schemaVersion: ->
+    if @schema?.contains('$schema')
+      'jsonschema-draft-4'
+    else
+      'csonschema'
+
   run: ->
     @assertExample() unless @skip()
 
   parseSchema: (source) =>
-    if source.contains('$schema')
-      # jsonschema draft 4 only
-      JSON.parse source
-    else
-      # csonschema
-      csonschema.parse source
+    switch @schemaVersion()
+      when 'jsonschema-draft-4' then JSON.parse source
+      when 'csonschema' then csonschema.parse source
+      else throw new Error('Unsupported schema')
 
   assertExample: =>
     schema = @parseSchema(@schema)

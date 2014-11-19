@@ -120,3 +120,23 @@ describe 'Test', ->
         test.example = 'BODY'
 
         assert.notOk test.skip()
+
+  describe '#schemaVersion', ->
+
+    it 'should return "jsonschema-draft-4" when schema contains $schema', ->
+        test = new Test()
+        test.schema = JSON.stringify
+          $schema: 'http://json-schema.org/draft-04/schema#'
+          type: 'object'
+          properties:
+            name:
+              type: 'string'
+
+        assert.equal test.schemaVersion(), 'jsonschema-draft-4'
+
+    it 'should return "csonschema" when schema does not contains $schema', ->
+    it 'should return false when test does not have body', ->
+        test = new Test()
+        test.schema = 'SCHEMA'
+
+        assert.equal test.schemaVersion(), 'csonschema'
