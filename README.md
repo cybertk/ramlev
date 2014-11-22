@@ -1,7 +1,8 @@
 **ramlev** is a simple RAML Example Validator, which is used to validate the examples defined in RAML against its schema.
 
 [![Build Status](http://img.shields.io/travis/cybertk/ramlev.svg?style=flat)](https://travis-ci.org/cybertk/ramlev)
-[![Dependency Status](https://david-dm.org/cybertk/ramlev.png)](https://david-dm.org/cybertk/ramlev)
+[![Dependency Status](https://david-dm.org/cybertk/ramlev.svg)](https://david-dm.org/cybertk/ramlev)
+[![devDependency Status](https://david-dm.org/cybertk/ramlev/dev-status.svg)](https://david-dm.org/cybertk/ramlev#info=devDependencies)
 [![Coverage Status](https://img.shields.io/coveralls/cybertk/ramlev.svg)](https://coveralls.io/r/cybertk/ramlev)
 
 ## Features
@@ -49,4 +50,3 @@ Any contribution is more then welcome!
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cybertk/ramlev/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
