@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/cybertk/ramlev.svg?style=flat)](https://travis-ci.org/cybertk/ramlev)
 [![Dependency Status](https://david-dm.org/cybertk/ramlev.png)](https://david-dm.org/cybertk/ramlev)
-[![Coverage Status](https://coveralls.io/repos/cybertk/ramlev/badge.png?branch=master)](https://coveralls.io/r/cybertk/ramlev?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/cybertk/ramlev.svg)](https://coveralls.io/r/cybertk/ramlev)
 
 ## Features
 
