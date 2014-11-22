@@ -8,7 +8,7 @@ assert = chai.assert
 should = chai.should()
 chai.use(sinonChai);
 
-Test = proxyquire '../../src/test', {
+Test = proxyquire '../../lib/test', {
 }
 
 
