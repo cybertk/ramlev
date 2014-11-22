@@ -36,7 +36,7 @@ module.exports = (grunt) ->
     mochaTest:
       test:
         options:
-          reporter: 'spec'
+          reporter: 'mocha-phantom-coverage-reporter'
           require: 'coffee-script/register'
         src: ['test/**/*.coffee']
 
