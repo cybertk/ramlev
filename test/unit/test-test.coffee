@@ -67,7 +67,6 @@ describe 'Test', ->
         test.assertExample()
 
     describe 'when example is null', ->
-
       it 'should throw AssertionError', ->
         test = new Test()
         test.schema = JSON.stringify
@@ -102,6 +101,27 @@ describe 'Test', ->
         test.example = JSON.stringify
           name: 1
         assert.throw test.assertExample, chai.AssertionError
+
+    describe 'when valid csonschema + json', ->
+      it 'should should pass all asserts', ->
+        test = new Test()
+        test.schema = """
+          name: 'string'
+        """
+        test.example = JSON.stringify
+          name: 'foo'
+        test.assertExample()
+
+    describe 'when valid csonschema + cson', ->
+      it 'should should pass all asserts', ->
+        test = new Test()
+        test.schema = """
+          name: 'string'
+        """
+        test.example = """
+          name: 'foo'
+        """
+        test.assertExample()
 
   describe '#skip', ->
 

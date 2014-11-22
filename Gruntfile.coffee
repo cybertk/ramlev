@@ -2,13 +2,8 @@ module.exports = (grunt) ->
 
   require('time-grunt') grunt
 
-  ###
-  Dynamically load npm tasks
-  ###
+  # Dynamically load npm tasks
   require('jit-grunt') grunt
-
-  grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.initConfig
 
@@ -41,6 +36,7 @@ module.exports = (grunt) ->
         src: ['test/**/*.coffee']
         # src: ['test/acceptance/*.coffee']
         # src: ['test/unit/*.coffee']
+
 
   grunt.registerTask "default", [
     "watch"
