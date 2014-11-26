@@ -76,7 +76,7 @@ describe 'Test', ->
           properties:
             name:
               type: 'string'
-        assert.throw test.assertExample, chai.AssertionError
+        assert.throw test.assertExample.bind(test), chai.AssertionError
 
     describe 'when example is invalid json', ->
       it 'should throw AssertionError', ->
@@ -88,7 +88,7 @@ describe 'Test', ->
             name:
               type: 'string'
         test.example = '{"a": invalid[]}'
-        assert.throw test.assertExample, chai.AssertionError
+        assert.throw test.assertExample.bind(test), chai.AssertionError
 
     describe 'when example does not lint with schema', ->
       it 'should throw AssertionError', ->
@@ -101,7 +101,7 @@ describe 'Test', ->
               type: 'string'
         test.example = JSON.stringify
           name: 1
-        assert.throw test.assertExample, chai.AssertionError
+        assert.throw test.assertExample.bind(test), chai.AssertionError
 
   describe '#skip', ->
 

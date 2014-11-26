@@ -23,10 +23,9 @@ class TestRunner
       return
 
     # Setup test
-    suite.addTest new Mocha.Test test.name(), _.bind (done) ->
-      @test.run()
+    suite.addTest new Mocha.Test test.name(), (done) ->
+      test.run()
       done()
-    , {test}
 
   run: (tests, callback) ->
     addTestToMocha = @addTestToMocha
