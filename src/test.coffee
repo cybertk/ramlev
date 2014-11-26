@@ -43,7 +43,7 @@ class Test
       else throw new Error('Unsupported schema')
 
   assertExample: ->
-    schema = @parseSchema()
+    schema = @json or @parseSchema()
     validateJson = _.partial(JSON.parse, @example)
     assert.doesNotThrow validateJson, JSON.SyntaxError, """
       Invalid JSON:
