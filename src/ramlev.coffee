@@ -34,7 +34,8 @@ class Ramlev
       (callback) ->
         refaker_keys = ['fakeroot', 'directory']
         refaker_opts = _.pick(config.options, refaker_keys)
-        refaker _.extend({ schemas: extractSchemas(tests) }, refaker_opts), (err, refs) ->
+        refaker _.extend({ schemas: extractSchemas(tests) }, refaker_opts), (err, refs, schemas) ->
+          test.json = schemas[test.refaked] for test in tests when test.refaked >= 0
           chai.tv4.addSchema(id, json) for id, json of refs
           callback()
       ,

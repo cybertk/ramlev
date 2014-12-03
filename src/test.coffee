@@ -36,14 +36,14 @@ class Test
   run: ->
     @assertExample() unless @skip()
 
-  parseSchema: (source) =>
+  parseSchema: ->
     switch @schemaVersion()
-      when 'jsonschema-draft-4' then JSON.parse source
-      when 'csonschema' then csonschema.parse source
+      when 'jsonschema-draft-4' then JSON.parse @schema
+      when 'csonschema' then csonschema.parse @schema
       else throw new Error('Unsupported schema')
 
-  assertExample: =>
-    schema = @parseSchema(@schema)
+  assertExample: ->
+    schema = @json or @parseSchema()
     validateJson = _.partial(JSON.parse, @example)
     assert.doesNotThrow validateJson, JSON.SyntaxError, """
       Invalid JSON:

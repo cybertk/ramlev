@@ -77,6 +77,19 @@ describe "Command line interface", ->
       it 'should print correct title for response', ->
         assert.equal report.tests[1].fullTitle, '/songs/{songId} GET response 200'
 
+    describe "when executing command with RAML contains csonschema", ->
+
+      before (done) ->
+        cmd = "./bin/ramlev ./test/fixtures/csonschema.raml"
+
+        execCommand cmd, done
+
+      it 'should exit with status 0', ->
+        assert.equal exitStatus, 0
+
+      it 'should print count of tests will run', ->
+        assert.include stdout, 'passing'
+
     describe 'when executing command with invalid RAML', ->
 
       describe 'contains 1 error', ->

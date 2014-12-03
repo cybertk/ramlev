@@ -4,6 +4,6 @@ module.exports = extractSchemas = (tests) ->
   retval = []
 
   _.each tests, (test) ->
-    retval.push(JSON.parse test.schema) if test.schemaVersion() is 'jsonschema-draft-4' and !test.skip()
+    test.refaked = retval.push(test.parseSchema()) - 1 unless test.skip()
 
   retval
