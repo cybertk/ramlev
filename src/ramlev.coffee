@@ -28,15 +28,49 @@ class Ramlev
       ,
       # Parse tests from RAML
       (raml, callback) ->
-        addTests raml, tests, callback
+        addTests raml, tests, ->
+          callback(null, raml)
       ,
       # Config refaker
-      (callback) ->
+      (raml, callback) ->
         refaker_keys = ['fakeroot', 'directory']
         refaker_opts = _.pick(config.options, refaker_keys)
-        refaker _.extend({ schemas: extractSchemas(tests) }, refaker_opts), (err, refs, schemas) ->
-          test.json = schemas[test.refaked] for test in tests when test.refaked >= 0
-          chai.tv4.addSchema(id, json) for id, json of refs
+
+        # strategy for faked-schemas
+        refaker_opts.schemas = []
+
+        # extract schemas from defined tests (resources)
+        raml_schemas = extractSchemas(tests)
+        cached_schemas = {}
+
+        push = (schema) ->
+          # avoid duplicates!
+          if typeof schema.id is 'string' and not cached_schemas[schema.id]
+            cached_schemas[schema.id] = on
+            refaker_opts.schemas.push(schema)
+
+        # collect resource-schemas
+        _.each raml_schemas, push
+
+        # collect raml-schemas
+        _.each raml.schemas, (obj) ->
+          _.each _.map(_.values(obj), JSON.parse), push
+
+        refaker refaker_opts, (err, refs, schemas) ->
+          fixed_schemas = {}
+
+          # collect all normalized schemas
+          _.each schemas, (schema) ->
+            fixed_schemas[schema.$offset] = schema
+            delete schema.$offset
+
+          # inject the normalized schema into the test
+          test.json = fixed_schemas[test.$offset] for test in tests when test.$offset
+
+          for id, json of refs
+            delete json.$offset
+            chai.tv4.addSchema(id, json)
+
           callback()
       ,
       # Run tests
