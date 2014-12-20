@@ -41,12 +41,10 @@ class Ramlev
 
         # extract schemas from defined tests (resources)
         raml_schemas = extractSchemas(tests)
-        cached_schemas = {}
 
         push = (schema) ->
           # avoid duplicates!
-          if typeof schema.id is 'string' and not cached_schemas[schema.id]
-            cached_schemas[schema.id] = on
+          if refaker_opts.schemas.indexOf(schema) is -1
             refaker_opts.schemas.push(schema)
 
         # collect resource-schemas
