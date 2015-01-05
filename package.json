@@ -32,10 +32,10 @@
     "chai-json-schema": "~1.1.0",
     "coffee-script": "~1.8.0",
     "csonschema": "^0.5.0",
-    "mocha": "~2.0.1",
+    "mocha": "^2.0.1",
     "optimist": "~0.6.1",
-    "raml-parser": "~0.8.7",
-    "refaker": "~0.2.2",
+    "raml-parser": "^0.8.9",
+    "refaker": "^0.2.4",
     "underscore": "~1.7.0"
   },
   "devDependencies": {
