@@ -33,6 +33,8 @@ class Ramlev
       ,
       # Config refaker
       (raml, callback) ->
+        cache = []
+
         refaker_keys = ['fakeroot', 'directory']
         refaker_opts = _.pick(config.options, refaker_keys)
 
@@ -43,9 +45,12 @@ class Ramlev
         raml_schemas = extractSchemas(tests)
 
         push = (schema) ->
+          json = JSON.stringify(_.omit(schema, '$offset'))
+
           # avoid duplicates!
-          if refaker_opts.schemas.indexOf(schema) is -1
+          if cache.indexOf(json) is -1
             refaker_opts.schemas.push(schema)
+            cache.push(json)
 
         # collect resource-schemas
         _.each raml_schemas, push
