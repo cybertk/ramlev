@@ -10,19 +10,5 @@ version: v1
       200:
         body:
           application/json:
-            schema: |
-              { "$schema": "http://json-schema.org/schema",
-                "type": "object",
-                "properties": {
-                  "all": {
-                    "type": "array",
-                    "items": { "$ref": "person-schema.json" }
-                  }
-                },
-                "required": ["all"]
-              }
-
-            example: |
-              { "all": [
-                { "firstName": "John", "lastName": "Doe" }
-              ] }
+            schema: !include ./example-schema.json
+            example: !include ./example-people.json
