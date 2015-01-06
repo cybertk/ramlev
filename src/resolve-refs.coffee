@@ -3,6 +3,7 @@ _ = require 'underscore'
 refaker = require 'refaker'
 
 id = 0
+key = "__#{(new Date).getTime()}"
 
 hash = ->
   "schema_#{id++}"
@@ -13,7 +14,7 @@ extractSchemas = (tests) ->
   _.each tests, (test) ->
     unless test.skip()
       schema = test.parseSchema()
-      schema.$offset = test.$offset = hash()
+      schema[key] = test[key] = hash()
 
       retval.push(schema)
 
@@ -48,13 +49,13 @@ module.exports = (raml, tests, options, callback) ->
 
     # collect all normalized schemas
     _.each schemas, (schema) ->
-      fixed_schemas[schema.$offset] = schema
-      delete schema.$offset
+      fixed_schemas[schema[key]] = schema
+      delete schema[key]
 
     # inject the normalized schema into the test
-    test.json = fixed_schemas[test.$offset] for test in tests when test.$offset
+    test.json = fixed_schemas[test[key]] for test in tests when test[key]
 
     # remove hacked property
-    delete json.$offset for id, json of refs
+    delete json[key] for id, json of refs
 
     callback null, refs
