@@ -1,6 +1,5 @@
 _ = require 'underscore'
 
-chai = require 'chai'
 refaker = require 'refaker'
 
 id = 0
@@ -55,8 +54,7 @@ module.exports = (raml, tests, options, callback) ->
     # inject the normalized schema into the test
     test.json = fixed_schemas[test.$offset] for test in tests when test.$offset
 
-    for id, json of refs
-      delete json.$offset
-      chai.tv4.addSchema(id, json)
+    # remove hacked property
+    delete json.$offset for id, json of refs
 
-    callback()
+    callback null, refs
