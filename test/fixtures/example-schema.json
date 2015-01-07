@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "all": {
+      "type": "array",
+      "items": { "$ref": "person-schema.json" }
+    }
+  },
+  "required": ["all"]
+}

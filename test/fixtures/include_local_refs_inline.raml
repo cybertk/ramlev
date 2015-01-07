@@ -4,11 +4,14 @@ title: Sample people API
 baseUri: http://example.api.com/{version}
 version: v1
 
+schemas:
+  - exampleSchema: !include ./example-schema.json
+
 /people:
   get:
     responses:
       200:
         body:
           application/json:
-            schema: !include ./example-schema.json
+            schema: exampleSchema
             example: !include ./example-people.json

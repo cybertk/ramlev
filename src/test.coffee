@@ -6,9 +6,6 @@ assert = chai.assert
 chai.use(require 'chai-json-schema')
 
 
-String::contains = (it) ->
-  @indexOf(it) != -1
-
 class Test
   constructor: () ->
     @path = ''
@@ -28,7 +25,8 @@ class Test
     true
 
   schemaVersion: ->
-    if @schema?.contains('$schema')
+    # JSON-schema in RAML are always objects so..
+    if /^[^{]*\{[\s\S]*\}[^}]*/.test(@schema)
       'jsonschema-draft-4'
     else
       'csonschema'

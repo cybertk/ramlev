@@ -1,13 +1,12 @@
 raml = require 'raml-parser'
 async = require 'async'
 chai = require 'chai'
-refaker = require 'refaker'
 _ = require 'underscore'
 
 options = require './options'
 addTests = require './add-tests'
 Runner = require './test-runner'
-extractSchemas = require './extract-schemas'
+resolveRefs = require './resolve-refs'
 
 
 class Ramlev
@@ -28,14 +27,14 @@ class Ramlev
       ,
       # Parse tests from RAML
       (raml, callback) ->
-        addTests raml, tests, callback
+        addTests raml, tests, ->
+          callback(null, raml)
       ,
       # Config refaker
-      (callback) ->
-        refaker_keys = ['fakeroot', 'directory']
-        refaker_opts = _.pick(config.options, refaker_keys)
-        refaker _.extend({ schemas: extractSchemas(tests) }, refaker_opts), (err, refs, schemas) ->
-          test.json = schemas[test.refaked] for test in tests when test.refaked >= 0
+      (raml, callback) ->
+        options = _.pick(config.options, ['fakeroot', 'directory'])
+        resolveRefs raml, tests, options, (err, refs) ->
+          # Register any found schema
           chai.tv4.addSchema(id, json) for id, json of refs
           callback()
       ,
