@@ -69,13 +69,14 @@ describe "Command line interface", ->
         assert.equal exitStatus, 0
 
       it 'should print count of tests will run', ->
-        assert.equal 2, report.tests.length
+        assert.equal 3, report.tests.length
 
       it 'should print correct title for request', ->
-        assert.equal report.tests[0].fullTitle, '/songs POST request'
+        assert.equal report.tests[0].fullTitle, '/songs POST request - application/json'
+        assert.equal report.tests[1].fullTitle, '/songs POST request - application/hal+json'
 
       it 'should print correct title for response', ->
-        assert.equal report.tests[1].fullTitle, '/songs/{songId} GET response 200'
+        assert.equal report.tests[2].fullTitle, '/songs/{songId} GET response 200 - application/json'
 
     describe "when executing command with RAML contains csonschema", ->
 
@@ -108,7 +109,7 @@ describe "Command line interface", ->
           assert.equal report.stats.pending, 1
 
         it 'should failed on invalidated example', ->
-          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT response 200'
+          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT response 200 - application/json'
 
       describe 'contains multiple error', ->
         before (done) ->
@@ -126,9 +127,9 @@ describe "Command line interface", ->
           assert.equal report.stats.pending, 0
 
         it 'should failed on invalidated example', ->
-          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT request'
-          assert.equal report.failures[1].fullTitle, '/songs/search GET response 200'
-          assert.equal report.failures[2].fullTitle, '/songs/authors GET response 200'
+          assert.equal report.failures[0].fullTitle, '/songs/{songId} PUT request - application/json'
+          assert.equal report.failures[1].fullTitle, '/songs/search GET response 200 - application/json'
+          assert.equal report.failures[2].fullTitle, '/songs/authors GET response 200 - application/json'
 
 
     describe 'when executing command and RAML has defined mediaType in root section', ->

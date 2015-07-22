@@ -6,19 +6,25 @@ Test = require './test'
 addTestIfNeeded = (tests, path, method, status, api) ->
     return unless api?.body
 
-    test = new Test
-
-    test.path = path
-    test.method = method
-    test.status = status
-
-    # Update test.request
-    if api.body['application/json']
-      test.example = api.body['application/json']?.example
-      test.schema = api.body['application/json']?.schema
-
-    # Append new test to tests
-    tests.push test
+    jsonMimeTypes = (mimeType for mimeType of api.body when mimeType.match(/application\/(.+\+)*json/))
+    if jsonMimeTypes.length == 0
+      test = new Test
+      test.path = path
+      test.method = method
+      test.status = status
+      # Add skipped test
+      tests.push test
+    else
+      for type in jsonMimeTypes
+        test = new Test
+        test.path = path
+        test.method = method
+        test.status = status
+        test.mimeType = type
+        test.example = api.body[type].example
+        test.schema = api.body[type].schema
+        # Append new test to tests
+        tests.push test
 
 
 # addTests(raml, tests, [parent], callback)
