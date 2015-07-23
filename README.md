@@ -16,20 +16,24 @@
 
 ## Installation
 
-[Node.js][] and [NPM][] is required.
+[Node.js][] and [NPM][] is required, to install latest stable version.
 
-    $ npm install -g ramlev
+    npm install -g ramlev
 
 [Node.js]: https://npmjs.org/
 [NPM]: https://npmjs.org/
 
-## Get Started Validating Your RAML Examples
+To install the lastest development branch.
 
-    $ ramlev api.raml
+    npm install git://github.com/cybertk/ramlev.git#master
+
+## Getting Started Validating Your RAML Examples
+
+    ramlev api.raml
 
 ## Command Line Options
 
-    $ ramlev --help
+    ramlev --help
 
     Usage:
       ramlev <path to raml> [OPTIONS]
@@ -46,7 +50,4 @@
 
 ## Contribution
 
-Any contribution is more then welcome!
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cybertk/ramlev/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+Any contribution is more than welcome!
