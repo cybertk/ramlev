@@ -11,14 +11,17 @@ class Test
     @path = ''
     @method = ''
     @status = 0
+    @mimeType = ''
     @schema = ''
     @example = ''
 
   name: ->
+    mimeInformation = ''
+    mimeInformation = " - #{@mimeType}" if @mimeType && @mimeType != ''
     if @status
-      "#{@method} response #{@status}"
+      "#{@method} response #{@status}#{mimeInformation}"
     else
-      "#{@method} request"
+      "#{@method} request#{mimeInformation}"
 
   skip: ->
     return false if @schema and @example

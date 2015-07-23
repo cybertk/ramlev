@@ -30,6 +30,30 @@ traits:
           }
         example: |
           { "title": "A Beautiful Day", "artist": "Mike" }
+      application/hal+json:
+        schema: |
+          { "$schema": "http://json-schema.org/schema",
+            "type": "object",
+            "description": "A canonical song",
+            "properties": {
+              "_links": {
+                "type": "object",
+                "properties": {
+                  "self": {
+                    "type": "object",
+                    "properties": {
+                      "href": { "type": "string" }
+                    }
+                  }
+                }
+              },
+              "title":  { "type": "string" },
+              "artist": { "type": "string" }
+            },
+            "required": [ "_links", "title", "artist" ]
+          }
+        example: |
+          { "_links": { "self": { "href": "link-to-song" } }, "title": "A Beautiful Day", "artist": "Mike" }
 
   /{songId}:
     get:
