@@ -7,30 +7,19 @@ module.exports = (grunt) ->
 
   grunt.initConfig
 
-    # Watching changes files *.js,
+    # Watching changes files *.coffee,
     watch:
       all:
         files: [
           "Gruntfile.coffee"
-          "src/*.coffee"
-        ]
-        tasks: [
-          "coffee"
+          "lib/*.coffee"
         ]
         options:
           nospawn: true
 
-    coffee:
-      compile:
-        expand: true,
-        flatten: true,
-        src: ['src/*.coffee'],
-        dest: 'lib/',
-        ext: '.js'
-
     coffeecov:
       compile:
-        src: 'src'
+        src: 'lib'
         dest: 'lib'
 
     mochaTest:
@@ -42,7 +31,7 @@ module.exports = (grunt) ->
 
     shell:
       coveralls:
-        command: 'cat coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js src'
+        command: 'cat coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js lib'
 
   grunt.registerTask 'uploadCoverage', ->
     return grunt.log.ok 'Bypass uploading' unless process.env['CI'] is 'true'
