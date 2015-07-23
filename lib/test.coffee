@@ -1,9 +1,9 @@
 chai = require 'chai'
 csonschema = require 'csonschema'
+tv4 = require 'tv4'
 _ = require 'underscore'
 
 assert = chai.assert
-chai.use(require 'chai-json-schema')
 
 
 class Test
@@ -53,7 +53,9 @@ class Test
     """
 
     json = validateJson()
-    assert.jsonSchema json, schema, """
+    result = tv4.validateResult json, schema
+    # console.error "ck", result
+    assert.ok result.valid, """
       Got unexpected response body:
       #{JSON.stringify(json, null, 4)}
       Error
