@@ -1,8 +1,19 @@
 sudo: false
 language: node_js
 node_js:
-  - "0.12"
-  - "0.11"
-  - "0.10"
+- '0.12'
+- '0.11'
+- '0.10'
 env:
-  - NODE_ENV=development
+- NODE_ENV=development
+notifications:
+  slack:
+    secure: 1s4R0MCb+knyNxhTs/wXQ5URA6NWbSgp1WqT+ssmy6pkSAq2/i0eDxFeFAmkgMRVXTs2pP8Et9uBtjTvd9mNhau4SldSw8ULQXYh42l6GrF7HVYU1SsPCx8Gp5ojFnKXIQEFXRFkvoLW/MQm2HcytAUfeJDY8s1TuYyCEDfS8q8=
+deploy:
+  provider: npm
+  email: kyan.ql.he@gmail.com
+  api_key:
+    secure: TQ7v8uNUbODiWhWuU/Ki6Yl6oc7OcXsJYRavFw801n/+Phc7absk0Rabvmki1heWLNr6SjC/+yQtkW1q7sY2HOB+seMOUzpEYhOJIl0Ij/jQb0i4Ytq62ZJlNCKPh0WIT5I4mb21l5vPxmP22gza44GbM1SBtNbNoWRlEsPfH0g=
+  on:
+    tags: true
+    repo: cybertk/ramlev
