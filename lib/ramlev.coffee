@@ -1,6 +1,6 @@
 raml = require 'raml-parser'
 async = require 'async'
-chai = require 'chai'
+tv4 = require 'tv4'
 _ = require 'underscore'
 
 options = require './options'
@@ -35,7 +35,7 @@ class Ramlev
         options = _.pick(config.options, ['fakeroot', 'directory'])
         resolveRefs raml, tests, options, (err, refs) ->
           # Register any found schema
-          chai.tv4.addSchema(id, json) for id, json of refs
+          tv4.addSchema(id, json) for id, json of refs
           callback()
       ,
       # Run tests
