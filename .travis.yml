@@ -8,12 +8,12 @@ env:
 - NODE_ENV=development
 notifications:
   slack:
-    secure: 1s4R0MCb+knyNxhTs/wXQ5URA6NWbSgp1WqT+ssmy6pkSAq2/i0eDxFeFAmkgMRVXTs2pP8Et9uBtjTvd9mNhau4SldSw8ULQXYh42l6GrF7HVYU1SsPCx8Gp5ojFnKXIQEFXRFkvoLW/MQm2HcytAUfeJDY8s1TuYyCEDfS8q8=
+    secure: Ab++IL6ZS4IniRq4AkI6y28wBIynI0jep6UqXgIpmmJxegDwRca+/E8XzyzxSBtuxKZh1BECX4R4U6A59TyCFzGVD9wsb+W25al3IZBCaBhKyKFqs6TA9NAsnRyvl2wE1O85y9KULRZcp3ko12xQjeUBqlSgsPwmfKAVxMG9x7k=
 deploy:
   provider: npm
   email: kyan.ql.he@gmail.com
   api_key:
-    secure: TQ7v8uNUbODiWhWuU/Ki6Yl6oc7OcXsJYRavFw801n/+Phc7absk0Rabvmki1heWLNr6SjC/+yQtkW1q7sY2HOB+seMOUzpEYhOJIl0Ij/jQb0i4Ytq62ZJlNCKPh0WIT5I4mb21l5vPxmP22gza44GbM1SBtNbNoWRlEsPfH0g=
+    secure: T1ZWXN77LIhmaGr8JIQk/jW50Q1FksQBEIoYvIfG1oJyc/ynEbWSikCXRazJaj/bNmamo9Pjtyp/5ssuoPYgyPbbGwEeZDmtLWsUQkWbPP5haUIZUoYTDZTlcB37JWNOcra+a0LFsa3m+A708FeTONsXaGmQcC0jmZU2bXOlHcs=
   on:
     tags: true
     repo: cybertk/ramlev
