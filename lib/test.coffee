@@ -58,7 +58,8 @@ class Test
     assert.ok result.valid, """
       Got unexpected response body:
       #{JSON.stringify(json, null, 4)}
-      Error
+      Error:
+      #{result.error}
     """
 
 module.exports = Test
