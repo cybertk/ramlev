@@ -61,5 +61,9 @@ class Test
       Error:
       #{result.error}
     """
+    assert.lengthOf result.missing, 0, """
+      Missing schemas:
+      #{result.missing}
+    """
 
 module.exports = Test
