@@ -42,7 +42,9 @@ describe "Command line interface", ->
       assert.equal exitStatus, 1
 
     it 'should print error message to stderr', ->
-      assert.include stderr, 'Error: ENOENT, open'
+      # See https://travis-ci.org/cybertk/ramlev/jobs/72294778#L231-L233
+      # iojs's behaviour is different from nodejs
+      assert.include stderr, 'Error: ENOENT'
 
   describe 'when called with arguments', ->
 
