@@ -2,13 +2,12 @@
   "name": "ramlev",
   "version": "0.4.0",
   "description": "RAML example validator",
-  "main": "lib/ramlev.js",
+  "main": "index.js",
   "bin": {
     "ramlev": "bin/ramlev"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "coffee -bc lib/*.coffee"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
