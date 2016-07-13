@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/cybertk/ramlev",
   "dependencies": {
-    "async": "^1.4.0",
+    "async": "^2.0.0",
     "chai": "~3.2.0",
     "coffee-script": "~1.9.3",
     "csonschema": "^0.5.1",
