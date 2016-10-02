@@ -28,7 +28,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "chai": "~3.2.0",
-    "coffee-script": "~1.9.3",
+    "coffee-script": "~1.11.1",
     "csonschema": "^0.5.1",
     "mocha": "^2.2.5",
     "optimist": "~0.6.1",
