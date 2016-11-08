@@ -30,7 +30,7 @@
     "chai": "~3.5.0",
     "coffee-script": "~1.9.3",
     "csonschema": "^0.5.1",
-    "mocha": "^2.2.5",
+    "mocha": "^2.5.0",
     "optimist": "~0.6.1",
     "raml-parser": "^0.8.11",
     "refaker": "^0.2.5",
