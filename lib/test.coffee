@@ -53,12 +53,17 @@ class Test
     """
 
     json = validateJson()
-    result = tv4.validateResult json, schema
+    result = tv4.validateMultiple json, schema
     # console.error "ck", result
     assert.ok result.valid, """
       Got unexpected response body:
       #{JSON.stringify(json, null, 4)}
-      Error
+      Errors:
+      #{result.errors}
+    """
+    assert.lengthOf result.missing, 0, """
+      Missing schemas:
+      #{result.missing}
     """
 
 module.exports = Test
