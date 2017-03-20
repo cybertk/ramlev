@@ -49,7 +49,7 @@
     "jit-grunt": "^0.9.1",
     "mocha-phantom-coverage-reporter": "^0.1.0",
     "proxyquire": "^1.6.0",
-    "sinon": "^1.15.4",
+    "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
     "time-grunt": "^1.2.1"
   }
