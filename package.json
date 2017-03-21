@@ -50,7 +50,7 @@
     "mocha-phantom-coverage-reporter": "^0.1.0",
     "proxyquire": "^1.6.0",
     "sinon": "^1.15.4",
-    "sinon-chai": "^2.8.0",
+    "sinon-chai": "^2.9.0",
     "time-grunt": "^1.2.1"
   }
 }
